@@ -16,6 +16,7 @@ view: products {
     sql: ${TABLE}.category ;;
   }
   dimension: cost {
+    hidden: yes
     type: number
     sql: ${TABLE}.cost ;;
   }
@@ -45,16 +46,23 @@ view: products {
     drill_fields: [detail*]
   }
 
+  measure: total_cost {
+    type: sum
+    sql: ${cost}  ;;
+    value_format_name: usd
+  }
+
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	id,
-	name,
-	distribution_centers.name,
-	distribution_centers.id,
-	inventory_items.count,
-	order_items.count
-	]
+  id,
+  name,
+  distribution_centers.name,
+  distribution_centers.id,
+  inventory_items.count,
+  order_items.count
+  ]
   }
 
 }
